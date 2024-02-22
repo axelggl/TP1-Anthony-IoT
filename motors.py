@@ -1,112 +1,107 @@
-from machine import Pin, PWM
+#Students : Axel Maerten, Théau Yapi, Dorian Blatière
+import time
+from motors import Motor
+from captor import *
 
-class Motor:
+#Creation of the left motor and the right motor
+left_wheel = Motor(14, 12, 13)
+right_wheel = Motor(25, 26, 33) # Parameters 25 and 26 are the physical pins for the way, 33 is the physical pin for the speed
+
+
+"""
+
+"""
+def forward_fullspeed(left_wheel, right_wheel):
     """
-    Motor class
+    Make the vehicle (the two motors) go forward at full speed
     """
-    
-    def __init__(self, pin_forward, pin_backward, pin_speed):
-        """
-        Initialize the forward, backward and pwm pins with the values of the parameters
-        
-        Parameters :
-            pin_forward (int) : number of the pin on the ESP32
-            pin_bakcward (int) : number of the pin on the ESP32
-            pin_speed (int) : number of the pin on the ESP32
-        """
-        self.pin_forward = Pin(pin_forward, Pin.OUT, value=0)
-        self.pin_backward = Pin(pin_backward, Pin.OUT, value=0)
-        self.pwm = PWM(Pin(pin_speed), freq=5000, duty_u16=0)
+    left_wheel.forward_fullspeed_motor()
+    right_wheel.forward_fullspeed_motor()
 
-    #Forward functions
-    def forward_fullspeed_motor(self, duty_cycle=65535):
-        """
-        Make the motor go in the forward way at full speed
-        
-        Parameters :
-            duty_cycle (int) : default value at 65535 which is the 100% speed
-        """
-        self.pin_forward.on()
-        self.pin_backward.off()
-        self.pwm.duty_u16(duty_cycle)
-        print('Vitesse : ' + str(duty_cycle))
-    
-    def forward_halfspeed_motor(self, duty_cycle=49151):
-        """
-        Make the motor go in the forward way at 3/4 speed
-        
-        Parameter :
-            duty_cycle (int) : default value at 49151 which is 75% speed
-        """
-        self.pin_forward.on()
-        self.pin_backward.off()
-        self.pwm.duty_u16(duty_cycle)
-        print('Vitesse : ' + str(duty_cycle))
-    
-    def forward_lowspeed_motor(self, duty_cycle=32768):
-        """
-        Make the motor go in the forward way at low speed (50%)
-        
-        Parameter :
-            duty_cycle (int) : default value at 32768 which is 50% speed
-        """
-        self.pin_forward.on()
-        self.pin_backward.off()
-        self.pwm.duty_u16(duty_cycle)
-        print('Vitesse : ' + str(duty_cycle))
-    
-    #Backward functions 
-    def backward_fullspeed_motor(self, duty_cycle=65535):
-        """
-        Make the motor go in the backward way at full speed
-        
-        Parameter :
-            duty_cycle (int) : default value at 65535 which is the 100% speed
-        """
-        self.pin_forward.off()
-        self.pin_backward.on()
-        self.pwm.duty_u16(duty_cycle)
-        print('Vitesse : ' + str(duty_cycle))
-    
-    
-    def backward_halfspeed_motor(self, duty_cycle=49151):
-        """
-        Make the motor go in the backward way at 3/4 speed
-        
-        Parameter :
-            duty_cycle (int) : default value at 49151 which is the 75% speed
-        """
-        self.pin_forward.off()
-        self.pin_backward.on()
-        self.pwm.duty_u16(duty_cycle)
-        print('Vitesse : ' + str(duty_cycle))
-        
-    def backward_lowspeed_motor(self, duty_cycle=32768):
-        """
-        Make the motor go in the backward way at low speed (50%)
-        
-        Parameter :
-            duty_cycle (int) : default value at 32768 which is the 50% speed
-        """
-        self.pin_forward.off()
-        self.pin_backward.on()
-        self.pwm.duty_u16(duty_cycle)
-        print('Vitesse : ' + str(duty_cycle))
-    
-    def stop(self):
-        """
-        Make the motor stop and block
-        """
-        self.pin_forward.on()
-        self.pin_backward.on()
-        self.pwm.duty_u16(65535)
-        print('Vitesse : ' + str(self.pwm.duty_u16))
+def forward_halfspeed(left_wheel, right_wheel):
+    """
+    Make the vehicle (the two motors) go forward at half speed
+    """
+    left_wheel.forward_halfspeed_motor()
+    right_wheel.forward_halfspeed_motor()
 
-    def release(self):
-        """
-        Make the motor stop but free (no force)
-        """
-        self.pin_forward.off()
-        self.pin_backward.off()
-        self.pwm.duty_u16(0)
-        print('Vitesse : ' + str(self.pwm.duty_u16))
+def forward_lowspeed(left_wheel, right_wheel):
+    """
+    Make the vehicle (the two motors) go forward at low speed
+    """
+    left_wheel.forward_lowspeed_motor()
+    right_wheel.forward_lowspeed_motor()
+
+def backward_fullspeed(left_wheel, right_wheel):
+    """
+    Make the vehicle (the two motors) go backward at full speed
+    """
+    left_wheel.backward_fullspeed_motor()
+    right_wheel.backward_fullspeed_motor()
+
+def backward_halfspeed(left_wheel, right_wheel):
+    """
+    Make the vehicle (the two motors) go backward at half speed
+    """
+    left_wheel.backward_halfspeed_motor()
+    right_wheel.backward_halfspeed_motor()
+
+def backward_lowspeed(left_wheel, right_wheel):
+    """
+    Make the vehicle (the two motors) go backward at low speed
+    """
+    left_wheel.backward_lowspeed_motor()
+    right_wheel.backward_lowspeed_motor()
+
+def turn_left(left_wheel, right_wheel):
+    """
+    Make the vehicle (the two motors) turn to the left
+    """
+    left_wheel.release()
+    right_wheel.forward_fullspeed_motor()
+    
+def turn_right(left_wheel, right_wheel):
+    """
+    Make the vehicle (the two motors) turn to the right
+    """
+    left_wheel.forward_fullspeed_motor()
+    right_wheel.release()
+
+def stop_vehicle(left_wheel, right_wheel):
+    """
+    Make the vehicle (the two motors) stop
+    """
+    left_wheel.stop()
+    right_wheel.stop()
+
+
+"""
+Tests every function created
+"""
+while True:
+    
+    distance = read_distance()
+    if distance < 10:
+        stop_vehicle(left_wheel, right_wheel)
+    else:
+        forward_fullspeed(left_wheel, right_wheel)
+        time.sleep(2)
+        forward_halfspeed(left_wheel, right_wheel)
+        time.sleep(2)
+        forward_lowspeed(left_wheel, right_wheel)
+        time.sleep(2)
+    
+        backward_fullspeed(left_wheel, right_wheel)
+        time.sleep(2)
+        backward_halfspeed(left_wheel, right_wheel)
+        time.sleep(2)
+        backward_lowspeed(left_wheel, right_wheel)
+        time.sleep(2)
+    
+        turn_left(left_wheel, right_wheel)
+        time.sleep(2)
+    
+        turn_right(left_wheel, right_wheel)
+        time.sleep(2)
+        
+    

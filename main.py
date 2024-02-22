@@ -1,6 +1,7 @@
 #Students : Axel Maerten, Théau Yapi, Dorian Blatière
 import time
 from motors import Motor
+from captor import *
 
 #Creation of the left motor and the right motor
 left_wheel = Motor(14, 12, 13)
@@ -78,25 +79,29 @@ def stop_vehicle(left_wheel, right_wheel):
 Tests every function created
 """
 while True:
-    forward_fullspeed(left_wheel, right_wheel)
-    time.sleep(2)
-    forward_halfspeed(left_wheel, right_wheel)
-    time.sleep(2)
-    forward_lowspeed(left_wheel, right_wheel)
-    time.sleep(2)
     
-    backward_fullspeed(left_wheel, right_wheel)
-    time.sleep(2)
-    backward_halfspeed(left_wheel, right_wheel)
-    time.sleep(2)
-    backward_lowspeed(left_wheel, right_wheel)
-    time.sleep(2)
+    distance = read_distance()
+    if distance < 10:
+        stop_vehicle(left_wheel, right_wheel)
+    else:
+        forward_fullspeed(left_wheel, right_wheel)
+        time.sleep(2)
+        forward_halfspeed(left_wheel, right_wheel)
+        time.sleep(2)
+        forward_lowspeed(left_wheel, right_wheel)
+        time.sleep(2)
     
-    turn_left(left_wheel, right_wheel)
-    time.sleep(2)
+        backward_fullspeed(left_wheel, right_wheel)
+        time.sleep(2)
+        backward_halfspeed(left_wheel, right_wheel)
+        time.sleep(2)
+        backward_lowspeed(left_wheel, right_wheel)
+        time.sleep(2)
     
-    turn_right(left_wheel, right_wheel)
-    time.sleep(2)
+        turn_left(left_wheel, right_wheel)
+        time.sleep(2)
     
-    stop_vehicle(left_wheel, right_wheel)
-    time.sleep(5)
+        turn_right(left_wheel, right_wheel)
+        time.sleep(2)
+        
+    
