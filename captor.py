@@ -10,7 +10,3 @@ def read_distance():
     newDistance = distance
     print(distance, 'cm')
     return distance 
-
-def print_distance():
-    distance = sensor.distance_cm()
-    print(distance,' cm')

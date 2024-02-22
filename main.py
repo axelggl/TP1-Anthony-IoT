@@ -80,28 +80,35 @@ Tests every function created
 """
 while True:
     
-    distance = read_distance()
-    if distance < 10:
-        stop_vehicle(left_wheel, right_wheel)
-    else:
-        forward_fullspeed(left_wheel, right_wheel)
-        time.sleep(2)
-        forward_halfspeed(left_wheel, right_wheel)
-        time.sleep(2)
-        forward_lowspeed(left_wheel, right_wheel)
-        time.sleep(2)
+    # distance = read_distance() # Prints distance between captor and nearest obstacle
     
-        backward_fullspeed(left_wheel, right_wheel)
-        time.sleep(2)
-        backward_halfspeed(left_wheel, right_wheel)
-        time.sleep(2)
-        backward_lowspeed(left_wheel, right_wheel)
-        time.sleep(2)
+    while read_distance() >= 10:
+
+        forward_fullspeed(left_wheel, right_wheel) # goes forward at full speed
+        time.sleep(2)                              # does it for 2 seconds
+        
+        forward_halfspeed(left_wheel, right_wheel) # goes forward at "half" speed
+        time.sleep(2)                              # does it for 2 seconds
+        
+        forward_lowspeed(left_wheel, right_wheel)  # goes forward at low speed
+        time.sleep(2)                              # does it for 2 seconds
+        
     
-        turn_left(left_wheel, right_wheel)
-        time.sleep(2)
+        backward_fullspeed(left_wheel, right_wheel) # goes backwards at full speed
+        time.sleep(2)                               # does it for 2 seconds
+        
+        backward_halfspeed(left_wheel, right_wheel) # goes backwards at "half" speed
+        time.sleep(2)                               # does it for 2 seconds
+         
+        backward_lowspeed(left_wheel, right_wheel)	# goes backwards at low speed
+        time.sleep(2)                             	# does it for 2 seconds
     
-        turn_right(left_wheel, right_wheel)
-        time.sleep(2)
+        turn_left(left_wheel, right_wheel)			# goes left at full speed
+        time.sleep(2)								# does it for 2 seconds
+    
+        turn_right(left_wheel, right_wheel)			# goes right at full speed
+        time.sleep(2)								# does it for 2 seconds
+        
+    stop_vehicle(left_wheel, right_wheel)			# vehicle stopped
         
     
