@@ -48,4 +48,4 @@ Faites un clic droit sur la partie "MicroPython Device" et sélectionnez "New fi
 
 Copiez-collez le contenu de nos fichiers dans les nouveaux fichiers créés sur votre ESP-32. Sauvegardez vos fichiers en vous rendant sur ceux-ci et en faisant CTRL+S.
 
-Vous pouvez lancer le programme en allant sur votre "main.py", et en cliquant sur le bouton vert en dessous de "View", permettant de lancer votre programme.
+Vous pouvez lancer le programme en allant sur votre "main.py", et en cliquant sur le bouton vert en dessous de "View", permettant de lancer votre programme..
