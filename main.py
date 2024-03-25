@@ -17,81 +17,58 @@ def forward_fullspeed(left_wheel, right_wheel):
     """
     Make the vehicle (the two motors) go forward at full speed
     """
-    if read_distance() > 10:
-        left_wheel.forward_fullspeed_motor()
-        right_wheel.forward_fullspeed_motor()
-    else:
-        stop_vehicle(left_wheel, right_wheel)
+    left_wheel.forward_fullspeed_motor()
+    right_wheel.forward_fullspeed_motor()
 
 def forward_halfspeed(left_wheel, right_wheel):
     """
     Make the vehicle (the two motors) go forward at half speed
     """
-    if read_distance() > 10:
-        left_wheel.forward_halfspeed_motor()
-        right_wheel.forward_halfspeed_motor()
-    else:
-        stop_vehicle(left_wheel, right_wheel)
+    left_wheel.forward_halfspeed_motor()
+    right_wheel.forward_halfspeed_motor()
 
 def forward_lowspeed(left_wheel, right_wheel):
     """
     Make the vehicle (the two motors) go forward at low speed
     """
-    if read_distance() > 10:
-        left_wheel.forward_lowspeed_motor()
-        right_wheel.forward_lowspeed_motor()
-    else:
-        stop_vehicle(left_wheel, right_wheel)
+    left_wheel.forward_lowspeed_motor()
+    right_wheel.forward_lowspeed_motor()
 
 def backward_fullspeed(left_wheel, right_wheel):
     """
     Make the vehicle (the two motors) go backward at full speed
     """
-    if read_distance() > 10:
-        left_wheel.backward_fullspeed_motor()
-        right_wheel.backward_fullspeed_motor()
-    else:
-        stop_vehicle(left_wheel, right_wheel)
+    left_wheel.backward_fullspeed_motor()
+    right_wheel.backward_fullspeed_motor()
 
 def backward_halfspeed(left_wheel, right_wheel):
     """
     Make the vehicle (the two motors) go backward at half speed
     """
-    if read_distance() > 10:
-        left_wheel.backward_halfspeed_motor()
-        right_wheel.backward_halfspeed_motor()
-    else:
-        stop_vehicle(left_wheel, right_wheel)
+    left_wheel.backward_halfspeed_motor()
+    right_wheel.backward_halfspeed_motor()
 
 def backward_lowspeed(left_wheel, right_wheel):
     """
     Make the vehicle (the two motors) go backward at low speed
     """
-    if read_distance() > 10:
-        left_wheel.backward_lowspeed_motor()
-        right_wheel.backward_lowspeed_motor()
-    else:
-        stop_vehicle(left_wheel, right_wheel)
+    left_wheel.backward_lowspeed_motor()
+    right_wheel.backward_lowspeed_motor()
 
 def turn_left(left_wheel, right_wheel):
     """
     Make the vehicle (the two motors) turn to the left
     """
-    if read_distance() > 10:
-        left_wheel.release()
-        right_wheel.forward_fullspeed_motor()
-    else:
-        stop_vehicle(left_wheel, right_wheel)
+    left_wheel.release()
+    right_wheel.forward_fullspeed_motor()
+    time.sleep(0.191666)
     
 def turn_right(left_wheel, right_wheel):
     """
     Make the vehicle (the two motors) turn to the right
     """
-    if read_distance() > 10:
-        left_wheel.forward_fullspeed_motor()
-        right_wheel.release()
-    else:
-        stop_vehicle(left_wheel, right_wheel)
+    left_wheel.forward_fullspeed_motor()
+    right_wheel.release()
 
 def stop_vehicle(left_wheel, right_wheel):
     """
